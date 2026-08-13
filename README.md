@@ -9,7 +9,7 @@ companion **StencilJS** web component library published to npm.
 ## Links
 
 - npm package: https://www.npmjs.com/package/@utkarshdz/recipe-ui-kit
-- Deployed app: TBD
+- Deployed app: https://recipe-finder-meal-planner-six.vercel.app
 - GitHub repository: https://github.com/UttkarshUpadhyay-Nagarro/Recipe_Finder_Meal_Planner
 
 ## Setup instructions
@@ -43,6 +43,12 @@ The app runs at `http://localhost:5173` by default.
 cd app
 npm run dev
 ```
+
+## Deployment
+
+The app is deployed to Vercel directly from this repository. Since this is a monorepo, the
+Vercel project's **Root Directory** is set to `app/` (Vercel auto-detects the SvelteKit
+framework preset once that's set). Every push to `main` redeploys automatically.
 
 ## Assumptions made
 
