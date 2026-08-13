@@ -1,1 +1,13 @@
 @import 'tailwindcss';
+
+:root {
+	/* Theme tokens consumed by the @utkarshdz/recipe-ui-kit custom elements. */
+	--rui-color-primary: #ea580c;
+	--rui-color-surface: #ffffff;
+	--rui-color-text: #1f2937;
+	--rui-color-muted: #6b7280;
+	--rui-color-border: #e5e7eb;
+	--rui-color-danger: #dc2626;
+	--rui-radius: 12px;
+	--rui-font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
