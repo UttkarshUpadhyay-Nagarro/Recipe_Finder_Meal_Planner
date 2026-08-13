@@ -10,7 +10,7 @@ companion **StencilJS** web component library published to npm.
 
 - npm package: TBD
 - Deployed app: TBD
-- GitHub repository: TBD
+- GitHub repository: https://github.com/UttkarshUpadhyay-Nagarro/Recipe_Finder_Meal_Planner
 
 ## Setup instructions
 
