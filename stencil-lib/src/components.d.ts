@@ -6,63 +6,406 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface RuiConfirmDialog {
         /**
-          * The first name
+          * Label for the cancel button.
+          * @default 'Cancel'
          */
-        "first": string;
+        "cancelLabel": string;
         /**
-          * The last name
+          * Label for the confirm button.
+          * @default 'Confirm'
          */
-        "last": string;
+        "confirmLabel": string;
         /**
-          * The middle name
+          * Styles the confirm button as a destructive action.
+          * @default false
          */
-        "middle": string;
+        "danger": boolean;
+        /**
+          * Dialog heading text.
+          * @default 'Are you sure?'
+         */
+        "heading": string;
+        /**
+          * Whether the dialog is visible.
+          * @default false
+         */
+        "open": boolean;
+    }
+    interface RuiMealSlot {
+        /**
+          * Day of week label, e.g. "Monday".
+         */
+        "day": string;
+        /**
+          * Thumbnail image for the assigned recipe.
+         */
+        "recipeImage"?: string;
+        /**
+          * Title of the recipe assigned to this day, if any.
+         */
+        "recipeTitle"?: string;
+    }
+    interface RuiRecipeCard {
+        /**
+          * Recipe cuisine/area, e.g. "Italian".
+         */
+        "area"?: string;
+        /**
+          * Recipe category, e.g. "Dessert".
+         */
+        "category"?: string;
+        /**
+          * Whether the recipe is currently marked as a favorite. Owned by the consuming app.
+          * @default false
+         */
+        "favorite": boolean;
+        /**
+          * Recipe thumbnail image URL.
+         */
+        "image"?: string;
+        /**
+          * Title of the recipe.
+         */
+        "recipeTitle": string;
+    }
+    interface RuiSearchBar {
+        /**
+          * Currently active filter label, if any.
+         */
+        "activeFilter"?: string;
+        /**
+          * Filter chip labels to display.
+          * @default []
+         */
+        "filters": string[];
+        /**
+          * Placeholder text for the search input.
+          * @default 'Search recipes...'
+         */
+        "placeholder": string;
+        /**
+          * Current search input value.
+          * @default ''
+         */
+        "value": string;
+    }
+    interface RuiStarRating {
+        /**
+          * Maximum number of stars.
+          * @default 5
+         */
+        "max": number;
+        /**
+          * When true, the rating is display-only and cannot be changed.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Current rating value, owned by the consuming app.
+          * @default 0
+         */
+        "value": number;
     }
 }
+export interface RuiConfirmDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLRuiConfirmDialogElement;
+}
+export interface RuiMealSlotCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLRuiMealSlotElement;
+}
+export interface RuiRecipeCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLRuiRecipeCardElement;
+}
+export interface RuiSearchBarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLRuiSearchBarElement;
+}
+export interface RuiStarRatingCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLRuiStarRatingElement;
+}
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLRuiConfirmDialogElementEventMap {
+        "confirm": void;
+        "cancel": void;
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    interface HTMLRuiConfirmDialogElement extends Components.RuiConfirmDialog, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLRuiConfirmDialogElementEventMap>(type: K, listener: (this: HTMLRuiConfirmDialogElement, ev: RuiConfirmDialogCustomEvent<HTMLRuiConfirmDialogElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLRuiConfirmDialogElementEventMap>(type: K, listener: (this: HTMLRuiConfirmDialogElement, ev: RuiConfirmDialogCustomEvent<HTMLRuiConfirmDialogElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLRuiConfirmDialogElement: {
+        prototype: HTMLRuiConfirmDialogElement;
+        new (): HTMLRuiConfirmDialogElement;
+    };
+    interface HTMLRuiMealSlotElementEventMap {
+        "removeMeal": void;
+    }
+    interface HTMLRuiMealSlotElement extends Components.RuiMealSlot, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLRuiMealSlotElementEventMap>(type: K, listener: (this: HTMLRuiMealSlotElement, ev: RuiMealSlotCustomEvent<HTMLRuiMealSlotElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLRuiMealSlotElementEventMap>(type: K, listener: (this: HTMLRuiMealSlotElement, ev: RuiMealSlotCustomEvent<HTMLRuiMealSlotElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLRuiMealSlotElement: {
+        prototype: HTMLRuiMealSlotElement;
+        new (): HTMLRuiMealSlotElement;
+    };
+    interface HTMLRuiRecipeCardElementEventMap {
+        "favoriteToggle": { favorite: boolean };
+    }
+    interface HTMLRuiRecipeCardElement extends Components.RuiRecipeCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLRuiRecipeCardElementEventMap>(type: K, listener: (this: HTMLRuiRecipeCardElement, ev: RuiRecipeCardCustomEvent<HTMLRuiRecipeCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLRuiRecipeCardElementEventMap>(type: K, listener: (this: HTMLRuiRecipeCardElement, ev: RuiRecipeCardCustomEvent<HTMLRuiRecipeCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLRuiRecipeCardElement: {
+        prototype: HTMLRuiRecipeCardElement;
+        new (): HTMLRuiRecipeCardElement;
+    };
+    interface HTMLRuiSearchBarElementEventMap {
+        "search": { value: string };
+        "filterChange": { filter: string };
+    }
+    interface HTMLRuiSearchBarElement extends Components.RuiSearchBar, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLRuiSearchBarElementEventMap>(type: K, listener: (this: HTMLRuiSearchBarElement, ev: RuiSearchBarCustomEvent<HTMLRuiSearchBarElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLRuiSearchBarElementEventMap>(type: K, listener: (this: HTMLRuiSearchBarElement, ev: RuiSearchBarCustomEvent<HTMLRuiSearchBarElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLRuiSearchBarElement: {
+        prototype: HTMLRuiSearchBarElement;
+        new (): HTMLRuiSearchBarElement;
+    };
+    interface HTMLRuiStarRatingElementEventMap {
+        "ratingChange": { value: number };
+    }
+    interface HTMLRuiStarRatingElement extends Components.RuiStarRating, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLRuiStarRatingElementEventMap>(type: K, listener: (this: HTMLRuiStarRatingElement, ev: RuiStarRatingCustomEvent<HTMLRuiStarRatingElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLRuiStarRatingElementEventMap>(type: K, listener: (this: HTMLRuiStarRatingElement, ev: RuiStarRatingCustomEvent<HTMLRuiStarRatingElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLRuiStarRatingElement: {
+        prototype: HTMLRuiStarRatingElement;
+        new (): HTMLRuiStarRatingElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "rui-confirm-dialog": HTMLRuiConfirmDialogElement;
+        "rui-meal-slot": HTMLRuiMealSlotElement;
+        "rui-recipe-card": HTMLRuiRecipeCardElement;
+        "rui-search-bar": HTMLRuiSearchBarElement;
+        "rui-star-rating": HTMLRuiStarRatingElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K]?: never };
+
+    interface RuiConfirmDialog {
         /**
-          * The first name
+          * Label for the cancel button.
+          * @default 'Cancel'
          */
-        "first"?: string;
+        "cancelLabel"?: string;
         /**
-          * The last name
+          * Label for the confirm button.
+          * @default 'Confirm'
          */
-        "last"?: string;
+        "confirmLabel"?: string;
         /**
-          * The middle name
+          * Styles the confirm button as a destructive action.
+          * @default false
          */
-        "middle"?: string;
+        "danger"?: boolean;
+        /**
+          * Dialog heading text.
+          * @default 'Are you sure?'
+         */
+        "heading"?: string;
+        /**
+          * Emitted when the user cancels or dismisses the dialog.
+         */
+        "onCancel"?: (event: RuiConfirmDialogCustomEvent<void>) => void;
+        /**
+          * Emitted when the user confirms.
+         */
+        "onConfirm"?: (event: RuiConfirmDialogCustomEvent<void>) => void;
+        /**
+          * Whether the dialog is visible.
+          * @default false
+         */
+        "open"?: boolean;
+    }
+    interface RuiMealSlot {
+        /**
+          * Day of week label, e.g. "Monday".
+         */
+        "day": string;
+        /**
+          * Emitted when the user removes the meal assigned to this day.
+         */
+        "onRemoveMeal"?: (event: RuiMealSlotCustomEvent<void>) => void;
+        /**
+          * Thumbnail image for the assigned recipe.
+         */
+        "recipeImage"?: string;
+        /**
+          * Title of the recipe assigned to this day, if any.
+         */
+        "recipeTitle"?: string;
+    }
+    interface RuiRecipeCard {
+        /**
+          * Recipe cuisine/area, e.g. "Italian".
+         */
+        "area"?: string;
+        /**
+          * Recipe category, e.g. "Dessert".
+         */
+        "category"?: string;
+        /**
+          * Whether the recipe is currently marked as a favorite. Owned by the consuming app.
+          * @default false
+         */
+        "favorite"?: boolean;
+        /**
+          * Recipe thumbnail image URL.
+         */
+        "image"?: string;
+        /**
+          * Emitted when the favorite toggle is clicked, with the requested new state.
+         */
+        "onFavoriteToggle"?: (event: RuiRecipeCardCustomEvent<{ favorite: boolean }>) => void;
+        /**
+          * Title of the recipe.
+         */
+        "recipeTitle": string;
+    }
+    interface RuiSearchBar {
+        /**
+          * Currently active filter label, if any.
+         */
+        "activeFilter"?: string;
+        /**
+          * Filter chip labels to display.
+          * @default []
+         */
+        "filters"?: string[];
+        /**
+          * Emitted when a filter chip is clicked.
+         */
+        "onFilterChange"?: (event: RuiSearchBarCustomEvent<{ filter: string }>) => void;
+        /**
+          * Emitted when the search is submitted.
+         */
+        "onSearch"?: (event: RuiSearchBarCustomEvent<{ value: string }>) => void;
+        /**
+          * Placeholder text for the search input.
+          * @default 'Search recipes...'
+         */
+        "placeholder"?: string;
+        /**
+          * Current search input value.
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface RuiStarRating {
+        /**
+          * Maximum number of stars.
+          * @default 5
+         */
+        "max"?: number;
+        /**
+          * Emitted when the user picks a new rating.
+         */
+        "onRatingChange"?: (event: RuiStarRatingCustomEvent<{ value: number }>) => void;
+        /**
+          * When true, the rating is display-only and cannot be changed.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Current rating value, owned by the consuming app.
+          * @default 0
+         */
+        "value"?: number;
     }
 
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
+    interface RuiConfirmDialogAttributes {
+        "open": boolean;
+        "heading": string;
+        "confirmLabel": string;
+        "cancelLabel": string;
+        "danger": boolean;
+    }
+    interface RuiMealSlotAttributes {
+        "day": string;
+        "recipeTitle": string;
+        "recipeImage": string;
+    }
+    interface RuiRecipeCardAttributes {
+        "recipeTitle": string;
+        "image": string;
+        "category": string;
+        "area": string;
+        "favorite": boolean;
+    }
+    interface RuiSearchBarAttributes {
+        "value": string;
+        "placeholder": string;
+        "activeFilter": string;
+    }
+    interface RuiStarRatingAttributes {
+        "value": number;
+        "max": number;
+        "readonly": boolean;
     }
 
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "rui-confirm-dialog": Omit<RuiConfirmDialog, keyof RuiConfirmDialogAttributes> & { [K in keyof RuiConfirmDialog & keyof RuiConfirmDialogAttributes]?: RuiConfirmDialog[K] } & { [K in keyof RuiConfirmDialog & keyof RuiConfirmDialogAttributes as `attr:${K}`]?: RuiConfirmDialogAttributes[K] } & { [K in keyof RuiConfirmDialog & keyof RuiConfirmDialogAttributes as `prop:${K}`]?: RuiConfirmDialog[K] };
+        "rui-meal-slot": Omit<RuiMealSlot, keyof RuiMealSlotAttributes> & { [K in keyof RuiMealSlot & keyof RuiMealSlotAttributes]?: RuiMealSlot[K] } & { [K in keyof RuiMealSlot & keyof RuiMealSlotAttributes as `attr:${K}`]?: RuiMealSlotAttributes[K] } & { [K in keyof RuiMealSlot & keyof RuiMealSlotAttributes as `prop:${K}`]?: RuiMealSlot[K] } & OneOf<"day", RuiMealSlot["day"], RuiMealSlotAttributes["day"]>;
+        "rui-recipe-card": Omit<RuiRecipeCard, keyof RuiRecipeCardAttributes> & { [K in keyof RuiRecipeCard & keyof RuiRecipeCardAttributes]?: RuiRecipeCard[K] } & { [K in keyof RuiRecipeCard & keyof RuiRecipeCardAttributes as `attr:${K}`]?: RuiRecipeCardAttributes[K] } & { [K in keyof RuiRecipeCard & keyof RuiRecipeCardAttributes as `prop:${K}`]?: RuiRecipeCard[K] } & OneOf<"recipeTitle", RuiRecipeCard["recipeTitle"], RuiRecipeCardAttributes["recipeTitle"]>;
+        "rui-search-bar": Omit<RuiSearchBar, keyof RuiSearchBarAttributes> & { [K in keyof RuiSearchBar & keyof RuiSearchBarAttributes]?: RuiSearchBar[K] } & { [K in keyof RuiSearchBar & keyof RuiSearchBarAttributes as `attr:${K}`]?: RuiSearchBarAttributes[K] } & { [K in keyof RuiSearchBar & keyof RuiSearchBarAttributes as `prop:${K}`]?: RuiSearchBar[K] };
+        "rui-star-rating": Omit<RuiStarRating, keyof RuiStarRatingAttributes> & { [K in keyof RuiStarRating & keyof RuiStarRatingAttributes]?: RuiStarRating[K] } & { [K in keyof RuiStarRating & keyof RuiStarRatingAttributes as `attr:${K}`]?: RuiStarRatingAttributes[K] } & { [K in keyof RuiStarRating & keyof RuiStarRatingAttributes as `prop:${K}`]?: RuiStarRating[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "rui-confirm-dialog": LocalJSX.IntrinsicElements["rui-confirm-dialog"] & JSXBase.HTMLAttributes<HTMLRuiConfirmDialogElement>;
+            "rui-meal-slot": LocalJSX.IntrinsicElements["rui-meal-slot"] & JSXBase.HTMLAttributes<HTMLRuiMealSlotElement>;
+            "rui-recipe-card": LocalJSX.IntrinsicElements["rui-recipe-card"] & JSXBase.HTMLAttributes<HTMLRuiRecipeCardElement>;
+            "rui-search-bar": LocalJSX.IntrinsicElements["rui-search-bar"] & JSXBase.HTMLAttributes<HTMLRuiSearchBarElement>;
+            "rui-star-rating": LocalJSX.IntrinsicElements["rui-star-rating"] & JSXBase.HTMLAttributes<HTMLRuiStarRatingElement>;
         }
     }
 }

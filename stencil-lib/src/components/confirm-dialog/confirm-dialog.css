@@ -1,0 +1,70 @@
+:host {
+  display: contents;
+  font-family: var(--rui-font, system-ui, -apple-system, 'Segoe UI', sans-serif);
+  --_primary: var(--rui-color-primary, #ea580c);
+  --_surface: var(--rui-color-surface, #ffffff);
+  --_text: var(--rui-color-text, #1f2937);
+  --_muted: var(--rui-color-muted, #6b7280);
+  --_border: var(--rui-color-border, #e5e7eb);
+  --_radius: var(--rui-radius, 12px);
+  --_danger: var(--rui-color-danger, #dc2626);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.dialog {
+  background: var(--_surface);
+  border-radius: var(--_radius);
+  padding: 20px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.heading {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  color: var(--_text);
+}
+
+.body {
+  color: var(--_muted);
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  border: 1px solid var(--_border);
+  background: var(--_surface);
+  color: var(--_text);
+}
+
+.confirm {
+  border-color: var(--_primary);
+  background: var(--_primary);
+  color: #fff;
+}
+
+.confirm.danger {
+  border-color: var(--_danger);
+  background: var(--_danger);
+}

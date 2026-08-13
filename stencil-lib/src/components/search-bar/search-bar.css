@@ -1,0 +1,73 @@
+:host {
+  display: block;
+  font-family: var(--rui-font, system-ui, -apple-system, 'Segoe UI', sans-serif);
+  --_primary: var(--rui-color-primary, #ea580c);
+  --_surface: var(--rui-color-surface, #ffffff);
+  --_text: var(--rui-color-text, #1f2937);
+  --_muted: var(--rui-color-muted, #6b7280);
+  --_border: var(--rui-color-border, #e5e7eb);
+  --_radius: var(--rui-radius, 12px);
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+form {
+  display: flex;
+  flex: 1;
+  min-width: 220px;
+}
+
+input[type='search'] {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--_border);
+  border-radius: var(--_radius) 0 0 var(--_radius);
+  font-size: 0.9rem;
+  color: var(--_text);
+  outline: none;
+}
+
+input[type='search']:focus {
+  border-color: var(--_primary);
+}
+
+form button[type='submit'] {
+  padding: 10px 16px;
+  border: 1px solid var(--_primary);
+  background: var(--_primary);
+  color: #fff;
+  border-radius: 0 var(--_radius) var(--_radius) 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--_border);
+  background: var(--_surface);
+  color: var(--_muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--_primary);
+  border-color: var(--_primary);
+  color: #fff;
+}
+
+.actions:empty {
+  display: none;
+}

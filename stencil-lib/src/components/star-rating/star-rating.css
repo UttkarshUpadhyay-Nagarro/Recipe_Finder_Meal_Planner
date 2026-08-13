@@ -1,0 +1,28 @@
+:host {
+  display: inline-block;
+  --_primary: var(--rui-color-primary, #ea580c);
+  --_border: var(--rui-color-border, #e5e7eb);
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.star {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--_border);
+  cursor: pointer;
+}
+
+.star:disabled {
+  cursor: default;
+}
+
+.star.filled {
+  color: var(--_primary);
+}

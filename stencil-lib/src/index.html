@@ -3,12 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Stencil Component Starter</title>
+    <title>recipe-ui-kit</title>
 
-    <script type="module" src="/build/stencil-lib.esm.js"></script>
-    <script nomodule src="/build/stencil-lib.js"></script>
+    <script type="module" src="/build/recipe-ui-kit.esm.js"></script>
+    <script nomodule src="/build/recipe-ui-kit.js"></script>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 640px;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+    </style>
   </head>
   <body>
-    <my-component first="Stencil" middle="'Don't call me a framework'" last="JS"></my-component>
+    <section>
+      <h2>rui-recipe-card</h2>
+      <div style="max-width: 260px">
+        <rui-recipe-card
+          recipe-title="Spaghetti Carbonara"
+          image="https://www.themealdb.com/images/media/meals/llcbn01574260722.jpg"
+          category="Pasta"
+          area="Italian"
+        >
+          <a href="#">View recipe</a>
+        </rui-recipe-card>
+      </div>
+    </section>
+
+    <section>
+      <h2>rui-star-rating</h2>
+      <rui-star-rating value="3"></rui-star-rating>
+    </section>
+
+    <section>
+      <h2>rui-meal-slot</h2>
+      <div style="max-width: 260px">
+        <rui-meal-slot day="Monday" recipe-title="Spaghetti Carbonara"></rui-meal-slot>
+      </div>
+    </section>
+
+    <section>
+      <h2>rui-search-bar</h2>
+      <rui-search-bar placeholder="Search recipes..."></rui-search-bar>
+    </section>
+
+    <section>
+      <h2>rui-confirm-dialog</h2>
+      <rui-confirm-dialog open heading="Delete recipe?" confirm-label="Delete" danger>
+        This action cannot be undone.
+      </rui-confirm-dialog>
+    </section>
   </body>
 </html>

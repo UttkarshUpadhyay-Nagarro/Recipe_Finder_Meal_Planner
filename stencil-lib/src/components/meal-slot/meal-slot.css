@@ -1,0 +1,78 @@
+:host {
+  display: block;
+  font-family: var(--rui-font, system-ui, -apple-system, 'Segoe UI', sans-serif);
+  --_primary: var(--rui-color-primary, #ea580c);
+  --_surface: var(--rui-color-surface, #ffffff);
+  --_text: var(--rui-color-text, #1f2937);
+  --_muted: var(--rui-color-muted, #6b7280);
+  --_border: var(--rui-color-border, #e5e7eb);
+  --_radius: var(--rui-radius, 12px);
+}
+
+.meal-slot {
+  border: 1px dashed var(--_border);
+  border-radius: var(--_radius);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 96px;
+}
+
+.meal-slot.filled {
+  border-style: solid;
+}
+
+.day {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--_muted);
+}
+
+.meal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meal img {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.meal .title {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--_text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove {
+  border: none;
+  background: none;
+  color: var(--_muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+}
+
+.remove:hover {
+  color: var(--_primary);
+}
+
+.empty {
+  color: var(--_muted);
+  font-size: 0.8125rem;
+}
+
+.actions:empty {
+  display: none;
+}
