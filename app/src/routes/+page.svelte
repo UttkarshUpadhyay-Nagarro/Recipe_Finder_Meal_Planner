@@ -61,7 +61,7 @@
 <div class="bg-gradient-to-br from-orange-500 via-orange-500 to-amber-500">
 	<div class="mx-auto max-w-6xl px-4 py-12 sm:py-16">
 		<h1 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">Find your next recipe</h1>
-		<p class="mt-2 max-w-xl text-orange-50">Search TheMealDB, browse by category, and save your favorites.</p>
+		<p class="mt-2 max-w-xl text-orange-50">Search recipes, browse by category, and save your favorites.</p>
 
 		<div class="mt-6 drop-shadow-lg">
 			<rui-search-bar

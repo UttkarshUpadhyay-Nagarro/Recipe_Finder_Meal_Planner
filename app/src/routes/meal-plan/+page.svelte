@@ -99,7 +99,7 @@
 				<form class="mt-3 flex gap-2" onsubmit={handleSearch}>
 					<input
 						bind:value={query}
-						placeholder="Search TheMealDB..."
+						placeholder="Search recipes..."
 						class="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm"
 					/>
 					<button type="submit" class="rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white">Search</button>
