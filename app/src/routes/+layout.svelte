@@ -18,13 +18,14 @@
 
 <div class="min-h-screen bg-gray-50">
 	<header class="border-b border-gray-200 bg-white">
-		<div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-			<a href="/" class="text-lg font-bold text-orange-600">Recipe Finder</a>
-			<nav class="flex gap-4 text-sm font-medium">
+		<div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+			<a href="/" class="shrink-0 text-base font-bold text-orange-600 sm:text-lg">Recipe Finder</a>
+			<nav class="flex min-w-0 gap-1 overflow-x-auto text-sm font-medium sm:gap-2">
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
-						class="rounded-md px-3 py-1.5 transition-colors {page.url.pathname === link.href
+						class="shrink-0 whitespace-nowrap rounded-md px-2.5 py-1.5 transition-colors sm:px-3 {page.url.pathname ===
+						link.href
 							? 'bg-orange-100 text-orange-700'
 							: 'text-gray-600 hover:text-orange-600'}"
 					>
