@@ -1,0 +1,169 @@
+<script lang="ts">
+	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
+	import { getRecipeById } from '$lib/api/mealdb';
+	import { userRecipes, isUserRecipeId } from '$lib/stores/user-recipes.svelte';
+	import { favorites } from '$lib/stores/favorites.svelte';
+	import { ratings } from '$lib/stores/ratings.svelte';
+	import type { Recipe } from '$lib/types';
+
+	const id = $derived(page.params.id ?? '');
+	const isUser = $derived(isUserRecipeId(id));
+
+	let recipe = $state<Recipe | null>(null);
+	let loading = $state(true);
+	let error = $state<string | null>(null);
+	let showDeleteConfirm = $state(false);
+
+	async function load() {
+		loading = true;
+		error = null;
+		recipe = null;
+		if (isUser) {
+			recipe = userRecipes.getById(id) ?? null;
+			if (!recipe) error = 'Recipe not found.';
+			loading = false;
+			return;
+		}
+		try {
+			recipe = await getRecipeById(id);
+			if (!recipe) error = 'Recipe not found.';
+		} catch {
+			error = 'Could not load this recipe.';
+		} finally {
+			loading = false;
+		}
+	}
+
+	$effect(() => {
+		id;
+		load();
+	});
+
+	const instructionParagraphs = $derived(
+		recipe?.instructions
+			.split(/\r?\n+/)
+			.map((s) => s.trim())
+			.filter(Boolean) ?? []
+	);
+
+	function toggleFavorite() {
+		if (!recipe) return;
+		favorites.setFavorite(
+			{ id: recipe.id, title: recipe.title, image: recipe.image, category: recipe.category, area: recipe.area, source: recipe.source },
+			!favorites.isFavorite(recipe.id)
+		);
+	}
+
+	function handleRatingChange(event: CustomEvent<{ value: number }>) {
+		if (!recipe) return;
+		ratings.set(recipe.id, event.detail.value);
+	}
+
+	function handleDelete() {
+		if (!recipe) return;
+		userRecipes.remove(recipe.id);
+		favorites.remove(recipe.id);
+		goto('/');
+	}
+</script>
+
+<svelte:head>
+	<title>{recipe ? `${recipe.title} — Recipe Finder` : 'Recipe — Recipe Finder'}</title>
+</svelte:head>
+
+<div class="mx-auto max-w-3xl px-4 py-8">
+	<a href="/" class="text-sm text-orange-600 hover:underline">&larr; Back to browse</a>
+
+	{#if loading}
+		<p class="mt-6 text-gray-500">Loading recipe…</p>
+	{:else if error || !recipe}
+		<p class="mt-6 text-red-600">{error ?? 'Recipe not found.'}</p>
+	{:else}
+		<article class="mt-4">
+			{#if recipe.image}
+				<img src={recipe.image} alt={recipe.title} class="aspect-video w-full rounded-xl object-cover" />
+			{/if}
+
+			<div class="mt-4 flex items-start justify-between gap-4">
+				<div>
+					<h1 class="text-2xl font-bold text-gray-900">{recipe.title}</h1>
+					<div class="mt-2 flex gap-2">
+						{#if recipe.category}
+							<span class="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs text-orange-700">{recipe.category}</span>
+						{/if}
+						{#if recipe.area}
+							<span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600">{recipe.area}</span>
+						{/if}
+					</div>
+				</div>
+				<button
+					type="button"
+					onclick={toggleFavorite}
+					class="shrink-0 rounded-full border border-gray-200 p-2 text-xl {favorites.isFavorite(recipe.id)
+						? 'text-orange-600'
+						: 'text-gray-400'}"
+					aria-label={favorites.isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+					aria-pressed={favorites.isFavorite(recipe.id)}
+				>
+					{favorites.isFavorite(recipe.id) ? '♥' : '♡'}
+				</button>
+			</div>
+
+			<div class="mt-4 flex items-center gap-2">
+				<span class="text-sm text-gray-500">Your rating:</span>
+				<rui-star-rating value={ratings.get(recipe.id)} onratingChange={handleRatingChange}></rui-star-rating>
+			</div>
+
+			{#if isUser}
+				<div class="mt-4 flex gap-2">
+					<a
+						href={`/recipes/${recipe.id}/edit`}
+						class="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+					>
+						Edit
+					</a>
+					<button
+						type="button"
+						onclick={() => (showDeleteConfirm = true)}
+						class="rounded-md border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+					>
+						Delete
+					</button>
+				</div>
+			{/if}
+
+			<section class="mt-8">
+				<h2 class="text-lg font-semibold text-gray-900">Ingredients</h2>
+				<ul class="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-2">
+					{#each recipe.ingredients as ingredient (ingredient.name)}
+						<li class="text-sm text-gray-700">
+							{#if ingredient.measure}<span class="font-medium">{ingredient.measure}</span>{/if}
+							{ingredient.name}
+						</li>
+					{/each}
+				</ul>
+			</section>
+
+			<section class="mt-8">
+				<h2 class="text-lg font-semibold text-gray-900">Instructions</h2>
+				<div class="mt-2 space-y-3 text-sm leading-relaxed text-gray-700">
+					{#each instructionParagraphs as paragraph, i (i)}
+						<p>{paragraph}</p>
+					{/each}
+				</div>
+			</section>
+		</article>
+
+		<rui-confirm-dialog
+			open={showDeleteConfirm}
+			heading="Delete this recipe?"
+			confirmLabel="Delete"
+			danger
+			oncancel={() => (showDeleteConfirm = false)}
+			onconfirm={handleDelete}
+		>
+			This will permanently remove "{recipe.title}". This cannot be undone.
+		</rui-confirm-dialog>
+	{/if}
+</div>
