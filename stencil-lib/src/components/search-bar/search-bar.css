@@ -30,6 +30,7 @@ input[type='search'] {
   font-size: 0.9rem;
   color: var(--_text);
   outline: none;
+  transition: border-color 0.15s ease;
 }
 
 input[type='search']:focus {
@@ -44,6 +45,11 @@ form button[type='submit'] {
   border-radius: 0 var(--_radius) var(--_radius) 0;
   cursor: pointer;
   font-size: 0.9rem;
+  transition: filter 0.15s ease;
+}
+
+form button[type='submit']:hover {
+  filter: brightness(1.08);
 }
 
 .filters {
@@ -60,12 +66,22 @@ form button[type='submit'] {
   color: var(--_muted);
   font-size: 0.8125rem;
   cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.chip:hover {
+  border-color: var(--_primary);
+  color: var(--_primary);
 }
 
 .chip.active {
   background: var(--_primary);
   border-color: var(--_primary);
   color: #fff;
+}
+
+.chip:active {
+  transform: scale(0.96);
 }
 
 .actions:empty {

@@ -77,13 +77,13 @@
 
 	{#if pickerDay}
 		<div
-			class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+			class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
 			role="presentation"
 			onclick={closePicker}
 			onkeydown={(e) => e.key === 'Escape' && closePicker()}
 		>
 			<div
-				class="max-h-[80vh] w-full max-w-md overflow-y-auto rounded-xl bg-white p-4"
+				class="max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-4 shadow-2xl"
 				role="dialog"
 				aria-modal="true"
 				aria-label={`Assign a recipe to ${pickerDay}`}
@@ -116,7 +116,7 @@
 									<button
 										type="button"
 										onclick={() => selectRecipe(recipe)}
-										class="flex w-full items-center gap-2 rounded-md p-2 text-left hover:bg-gray-50"
+										class="flex w-full items-center gap-2 rounded-lg p-2 text-left transition-colors hover:bg-orange-50"
 									>
 										{#if recipe.image}<img src={recipe.image} alt="" class="h-10 w-10 rounded object-cover" />{/if}
 										<span class="text-sm text-gray-800">{recipe.title}</span>
@@ -136,7 +136,7 @@
 									<button
 										type="button"
 										onclick={() => selectRecipe(recipe)}
-										class="flex w-full items-center gap-2 rounded-md p-2 text-left hover:bg-gray-50"
+										class="flex w-full items-center gap-2 rounded-lg p-2 text-left transition-colors hover:bg-orange-50"
 									>
 										{#if recipe.image}<img src={recipe.image} alt="" class="h-10 w-10 rounded object-cover" />{/if}
 										<span class="text-sm text-gray-800">{recipe.title}</span>

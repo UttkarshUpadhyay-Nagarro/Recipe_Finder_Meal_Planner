@@ -16,9 +16,13 @@
 	<p class="mb-6 text-gray-600">Recipes you've saved for later.</p>
 
 	{#if favorites.list.length === 0}
-		<p class="mt-10 text-gray-500">
-			No favorites yet. <a href="/" class="text-orange-600 hover:underline">Browse recipes</a> and tap the heart to save one.
-		</p>
+		<div class="flex flex-col items-center py-16 text-center">
+			<span class="text-4xl">🤍</span>
+			<p class="mt-3 text-gray-600">
+				No favorites yet. <a href="/" class="font-medium text-orange-600 hover:underline">Browse recipes</a> and tap the heart
+				to save one.
+			</p>
+		</div>
 	{:else}
 		<div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 			{#each favorites.list as recipe (recipe.id)}

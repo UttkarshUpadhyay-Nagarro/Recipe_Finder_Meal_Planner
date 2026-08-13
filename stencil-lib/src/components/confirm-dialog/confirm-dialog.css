@@ -10,6 +10,26 @@
   --_danger: var(--rui-color-danger, #dc2626);
 }
 
+@keyframes rui-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rui-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -19,6 +39,7 @@
   justify-content: center;
   z-index: 1000;
   padding: 16px;
+  animation: rui-overlay-in 0.15s ease-out;
 }
 
 .dialog {
@@ -28,6 +49,7 @@
   max-width: 360px;
   width: 100%;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  animation: rui-dialog-in 0.18s ease-out;
 }
 
 .heading {
@@ -56,6 +78,15 @@
   border: 1px solid var(--_border);
   background: var(--_surface);
   color: var(--_text);
+  transition: filter 0.15s ease, transform 0.1s ease;
+}
+
+.actions button:hover {
+  filter: brightness(0.97);
+}
+
+.actions button:active {
+  transform: scale(0.97);
 }
 
 .confirm {

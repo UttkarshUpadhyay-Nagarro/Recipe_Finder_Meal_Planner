@@ -17,10 +17,17 @@
   flex-direction: column;
   gap: 8px;
   min-height: 96px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .meal-slot.filled {
   border-style: solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.meal-slot.filled:hover {
+  border-color: color-mix(in srgb, var(--_primary) 35%, var(--_border));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }
 
 .day {
@@ -62,10 +69,13 @@
   cursor: pointer;
   font-size: 0.9rem;
   padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .remove:hover {
   color: var(--_primary);
+  background: color-mix(in srgb, var(--_primary) 10%, transparent);
 }
 
 .empty {

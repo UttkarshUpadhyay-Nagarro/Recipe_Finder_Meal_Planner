@@ -83,87 +83,105 @@
 	<title>{recipe ? `${recipe.title} — Recipe Finder` : 'Recipe — Recipe Finder'}</title>
 </svelte:head>
 
-<div class="mx-auto max-w-3xl px-4 py-8">
-	<a href="/" class="text-sm text-orange-600 hover:underline">&larr; Back to browse</a>
+<div class="mx-auto max-w-5xl px-4 py-8">
+	<a href="/" class="text-sm font-medium text-orange-600 hover:underline">&larr; Back to browse</a>
 
 	{#if loading}
-		<p class="mt-6 text-gray-500">Loading recipe…</p>
+		<div class="mt-6 animate-pulse space-y-4">
+			<div class="aspect-[21/9] w-full rounded-2xl bg-gray-200"></div>
+			<div class="h-8 w-2/3 rounded bg-gray-200"></div>
+			<div class="h-4 w-1/3 rounded bg-gray-200"></div>
+		</div>
 	{:else if error || !recipe}
-		<p class="mt-6 text-red-600">{error ?? 'Recipe not found.'}</p>
+		<div class="flex flex-col items-center py-16 text-center">
+			<span class="text-4xl">⚠️</span>
+			<p class="mt-3 text-gray-600">{error ?? 'Recipe not found.'}</p>
+		</div>
 	{:else}
 		<article class="mt-4">
 			{#if recipe.image}
-				<img src={recipe.image} alt={recipe.title} class="aspect-video w-full rounded-xl object-cover" />
+				<img src={recipe.image} alt={recipe.title} class="aspect-[21/9] w-full rounded-2xl object-cover shadow-md" />
 			{/if}
 
-			<div class="mt-4 flex items-start justify-between gap-4">
-				<div>
-					<h1 class="text-2xl font-bold text-gray-900">{recipe.title}</h1>
-					<div class="mt-2 flex gap-2">
-						{#if recipe.category}
-							<span class="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs text-orange-700">{recipe.category}</span>
-						{/if}
-						{#if recipe.area}
-							<span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600">{recipe.area}</span>
-						{/if}
+			<div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-3">
+				<aside class="order-first lg:order-2 lg:col-span-1">
+					<div class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm lg:sticky lg:top-20">
+						<h2 class="text-lg font-semibold text-gray-900">Ingredients</h2>
+						<ul class="mt-3 space-y-2">
+							{#each recipe.ingredients as ingredient (ingredient.name)}
+								<li class="flex gap-2 text-sm text-gray-700">
+									<span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400"></span>
+									<span>
+										{#if ingredient.measure}<span class="font-medium">{ingredient.measure}</span>{/if}
+										{ingredient.name}
+									</span>
+								</li>
+							{/each}
+						</ul>
 					</div>
+				</aside>
+
+				<div class="lg:order-1 lg:col-span-2">
+					<div class="flex items-start justify-between gap-4">
+						<div>
+							<h1 class="text-3xl font-extrabold tracking-tight text-gray-900">{recipe.title}</h1>
+							<div class="mt-2 flex gap-2">
+								{#if recipe.category}
+									<span class="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-700">{recipe.category}</span>
+								{/if}
+								{#if recipe.area}
+									<span class="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">{recipe.area}</span>
+								{/if}
+							</div>
+						</div>
+						<button
+							type="button"
+							onclick={toggleFavorite}
+							class="shrink-0 rounded-full border border-gray-200 p-2 text-xl transition-colors {favorites.isFavorite(
+								recipe.id
+							)
+								? 'text-orange-600'
+								: 'text-gray-400 hover:text-orange-500'}"
+							aria-label={favorites.isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
+							aria-pressed={favorites.isFavorite(recipe.id)}
+						>
+							{favorites.isFavorite(recipe.id) ? '♥' : '♡'}
+						</button>
+					</div>
+
+					<div class="mt-4 flex items-center gap-2">
+						<span class="text-sm text-gray-500">Your rating:</span>
+						<rui-star-rating value={ratings.get(recipe.id)} onratingChange={handleRatingChange}></rui-star-rating>
+					</div>
+
+					{#if isUser}
+						<div class="mt-4 flex gap-2">
+							<a
+								href={`/recipes/${recipe.id}/edit`}
+								class="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+							>
+								Edit
+							</a>
+							<button
+								type="button"
+								onclick={() => (showDeleteConfirm = true)}
+								class="rounded-md border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+							>
+								Delete
+							</button>
+						</div>
+					{/if}
+
+					<section class="mt-8">
+						<h2 class="text-lg font-semibold text-gray-900">Instructions</h2>
+						<div class="mt-3 space-y-3 text-sm leading-relaxed text-gray-700">
+							{#each instructionParagraphs as paragraph, i (i)}
+								<p>{paragraph}</p>
+							{/each}
+						</div>
+					</section>
 				</div>
-				<button
-					type="button"
-					onclick={toggleFavorite}
-					class="shrink-0 rounded-full border border-gray-200 p-2 text-xl {favorites.isFavorite(recipe.id)
-						? 'text-orange-600'
-						: 'text-gray-400'}"
-					aria-label={favorites.isFavorite(recipe.id) ? 'Remove from favorites' : 'Add to favorites'}
-					aria-pressed={favorites.isFavorite(recipe.id)}
-				>
-					{favorites.isFavorite(recipe.id) ? '♥' : '♡'}
-				</button>
 			</div>
-
-			<div class="mt-4 flex items-center gap-2">
-				<span class="text-sm text-gray-500">Your rating:</span>
-				<rui-star-rating value={ratings.get(recipe.id)} onratingChange={handleRatingChange}></rui-star-rating>
-			</div>
-
-			{#if isUser}
-				<div class="mt-4 flex gap-2">
-					<a
-						href={`/recipes/${recipe.id}/edit`}
-						class="rounded-md border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-					>
-						Edit
-					</a>
-					<button
-						type="button"
-						onclick={() => (showDeleteConfirm = true)}
-						class="rounded-md border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
-					>
-						Delete
-					</button>
-				</div>
-			{/if}
-
-			<section class="mt-8">
-				<h2 class="text-lg font-semibold text-gray-900">Ingredients</h2>
-				<ul class="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-2">
-					{#each recipe.ingredients as ingredient (ingredient.name)}
-						<li class="text-sm text-gray-700">
-							{#if ingredient.measure}<span class="font-medium">{ingredient.measure}</span>{/if}
-							{ingredient.name}
-						</li>
-					{/each}
-				</ul>
-			</section>
-
-			<section class="mt-8">
-				<h2 class="text-lg font-semibold text-gray-900">Instructions</h2>
-				<div class="mt-2 space-y-3 text-sm leading-relaxed text-gray-700">
-					{#each instructionParagraphs as paragraph, i (i)}
-						<p>{paragraph}</p>
-					{/each}
-				</div>
-			</section>
 		</article>
 
 		<rui-confirm-dialog

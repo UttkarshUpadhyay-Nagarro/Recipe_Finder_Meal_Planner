@@ -17,17 +17,17 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <div class="min-h-screen bg-gray-50">
-	<header class="border-b border-gray-200 bg-white">
+	<header class="sticky top-0 z-40 border-b border-gray-200 bg-white/90 shadow-sm backdrop-blur">
 		<div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
-			<a href="/" class="shrink-0 text-base font-bold text-orange-600 sm:text-lg">Recipe Finder</a>
+			<a href="/" class="shrink-0 text-base font-bold text-orange-600 sm:text-lg">🍽️ Recipe Finder</a>
 			<nav class="flex min-w-0 gap-1 overflow-x-auto text-sm font-medium sm:gap-2">
 				{#each navLinks as link (link.href)}
 					<a
 						href={link.href}
-						class="shrink-0 whitespace-nowrap rounded-md px-2.5 py-1.5 transition-colors sm:px-3 {page.url.pathname ===
-						link.href
+						class="shrink-0 whitespace-nowrap rounded-md px-2.5 py-1.5 transition-all duration-150 sm:px-3 {page.url
+							.pathname === link.href
 							? 'bg-orange-100 text-orange-700'
-							: 'text-gray-600 hover:text-orange-600'}"
+							: 'text-gray-600 hover:bg-gray-100 hover:text-orange-600'}"
 					>
 						{link.label}
 					</a>
