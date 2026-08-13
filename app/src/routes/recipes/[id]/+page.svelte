@@ -15,29 +15,40 @@
 	let error = $state<string | null>(null);
 	let showDeleteConfirm = $state(false);
 
-	async function load() {
+	$effect(() => {
+		const currentId = id;
+		const currentIsUser = isUser;
 		loading = true;
 		error = null;
 		recipe = null;
-		if (isUser) {
-			recipe = userRecipes.getById(id) ?? null;
-			if (!recipe) error = 'Recipe not found.';
-			loading = false;
+
+		if (currentIsUser) {
+			// Deferred to a microtask so this branch (which has no natural `await`)
+			// never resolves the whole load synchronously inside the effect's
+			// tracking window — see recipe-finder-meal-planner memory notes.
+			Promise.resolve().then(() => {
+				if (id !== currentId) return;
+				recipe = userRecipes.getById(currentId) ?? null;
+				if (!recipe) error = 'Recipe not found.';
+				loading = false;
+			});
 			return;
 		}
-		try {
-			recipe = await getRecipeById(id);
-			if (!recipe) error = 'Recipe not found.';
-		} catch {
-			error = 'Could not load this recipe.';
-		} finally {
-			loading = false;
-		}
-	}
 
-	$effect(() => {
-		id;
-		load();
+		getRecipeById(currentId)
+			.then((result) => {
+				if (id !== currentId) return;
+				recipe = result;
+				if (!result) error = 'Recipe not found.';
+			})
+			.catch(() => {
+				if (id !== currentId) return;
+				error = 'Could not load this recipe.';
+			})
+			.finally(() => {
+				if (id !== currentId) return;
+				loading = false;
+			});
 	});
 
 	const instructionParagraphs = $derived(
