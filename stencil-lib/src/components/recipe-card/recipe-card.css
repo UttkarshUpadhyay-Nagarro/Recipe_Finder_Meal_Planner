@@ -1,5 +1,6 @@
 :host {
   display: block;
+  height: 100%;
   font-family: var(--rui-font, system-ui, -apple-system, 'Segoe UI', sans-serif);
   --_primary: var(--rui-color-primary, #ea580c);
   --_surface: var(--rui-color-surface, #ffffff);
@@ -10,6 +11,7 @@
 }
 
 .card {
+  height: 100%;
   background: var(--_surface);
   border: 1px solid var(--_border);
   border-radius: var(--_radius);
@@ -78,10 +80,16 @@
 }
 
 .body {
+  flex: 1;
   padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.actions {
+  margin-top: auto;
+  padding-top: 4px;
 }
 
 .title {

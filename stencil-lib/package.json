@@ -1,6 +1,6 @@
 {
   "name": "@utkarshdz/recipe-ui-kit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "description": "Reusable StencilJS component library for the Recipe Finder & Meal Planner app",
   "main": "dist/index.cjs.js",
