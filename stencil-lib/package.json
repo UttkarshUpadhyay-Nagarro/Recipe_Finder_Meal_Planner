@@ -1,5 +1,5 @@
 {
-  "name": "@uttkarshupadhyay/recipe-ui-kit",
+  "name": "@utkarshdz/recipe-ui-kit",
   "version": "0.1.0",
   "description": "Reusable StencilJS component library for the Recipe Finder & Meal Planner app",
   "main": "dist/index.cjs.js",
@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UttkarshUpadhyay-Nagarro/Recipe_Finder_Meal_Planner.git"
+    "url": "git+https://github.com/UttkarshUpadhyay-Nagarro/Recipe_Finder_Meal_Planner.git"
   },
   "files": [
     "dist/",

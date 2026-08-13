@@ -4,11 +4,11 @@ A recipe discovery and weekly meal planning app built with **Svelte 5**, **Svelt
 companion **StencilJS** web component library published to npm.
 
 - `app/` — the SvelteKit application
-- `stencil-lib/` — the StencilJS component library (`@uttkarshupadhyay/recipe-ui-kit`)
+- `stencil-lib/` — the StencilJS component library (`@utkarshdz/recipe-ui-kit`)
 
 ## Links
 
-- npm package: TBD
+- npm package: https://www.npmjs.com/package/@utkarshdz/recipe-ui-kit
 - Deployed app: TBD
 - GitHub repository: https://github.com/UttkarshUpadhyay-Nagarro/Recipe_Finder_Meal_Planner
 
@@ -54,6 +54,6 @@ npm run dev
 
 ## Stencil component library
 
-Published as `@uttkarshupadhyay/recipe-ui-kit` on npm and consumed by the SvelteKit app as a
+Published as `@utkarshdz/recipe-ui-kit` on npm and consumed by the SvelteKit app as a
 regular dependency (not imported from source). See [`stencil-lib/README.md`](./stencil-lib/README.md)
 for component docs.

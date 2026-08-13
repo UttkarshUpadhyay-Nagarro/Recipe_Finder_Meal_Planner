@@ -1,4 +1,4 @@
-# @uttkarshupadhyay/recipe-ui-kit
+# @utkarshdz/recipe-ui-kit
 
 A small, reusable [StencilJS](https://stenciljs.com/) web component library built for the
 Recipe Finder & Meal Planner app. Components are framework-agnostic standard web components,
@@ -33,7 +33,7 @@ so components can be imported individually as standalone custom elements — the
 approach when consuming from another framework such as Svelte:
 
 ```ts
-import '@uttkarshupadhyay/recipe-ui-kit/dist/components/rui-recipe-card.js';
+import '@utkarshdz/recipe-ui-kit/dist/components/rui-recipe-card.js';
 ```
 
 Once imported, the custom element is registered and can be used directly in markup:
