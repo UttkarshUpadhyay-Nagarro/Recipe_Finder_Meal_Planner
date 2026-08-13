@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { searchRecipes, browseByCategory, listCategories } from '$lib/api/mealdb';
 	import { favorites } from '$lib/stores/favorites.svelte';
 	import type { RecipeSummary } from '$lib/types';
@@ -46,8 +47,10 @@
 		favorites.setFavorite(recipe, event.detail.favorite);
 	}
 
-	loadCategories();
-	loadRecipes();
+	onMount(() => {
+		loadCategories();
+		loadRecipes();
+	});
 </script>
 
 <svelte:head>
