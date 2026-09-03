@@ -10,10 +10,16 @@
 	let searchResults = $state<RecipeSummary[]>([]);
 	let searching = $state(false);
 
-	const suggestions = $derived<RecipeSummary[]>([
-		...favorites.list,
-		...userRecipes.list.map((r) => ({ id: r.id, title: r.title, image: r.image, category: r.category, area: r.area, source: r.source }))
-	]);
+	const suggestions = $derived<RecipeSummary[]>(
+		Array.from(
+			new Map(
+				[
+					...favorites.list,
+					...userRecipes.list.map((r) => ({ id: r.id, title: r.title, image: r.image, category: r.category, area: r.area, source: r.source }))
+				].map((recipe) => [recipe.id, recipe])
+			).values()
+		)
+	);
 
 	function openPicker(day: Day) {
 		pickerDay = day;

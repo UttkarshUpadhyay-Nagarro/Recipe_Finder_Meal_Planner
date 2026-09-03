@@ -3,12 +3,16 @@
 	import { goto } from '$app/navigation';
 	import RecipeForm from '$lib/components/RecipeForm.svelte';
 	import { userRecipes, isUserRecipeId, type UserRecipeInput } from '$lib/stores/user-recipes.svelte';
+	import { favorites } from '$lib/stores/favorites.svelte';
 
 	const id = $derived(page.params.id ?? '');
 	const recipe = $derived(isUserRecipeId(id) ? userRecipes.getById(id) : undefined);
 
 	function handleSubmit(input: UserRecipeInput) {
 		userRecipes.update(id, input);
+		if (favorites.isFavorite(id)) {
+			favorites.setFavorite({ id, title: input.title, image: input.image, category: input.category, area: input.area, source: 'user' }, true);
+		}
 		goto(`/recipes/${id}`);
 	}
 </script>

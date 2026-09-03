@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { searchRecipes, browseByCategory, listCategories } from '$lib/api/mealdb';
 	import { favorites } from '$lib/stores/favorites.svelte';
+	import { userRecipes } from '$lib/stores/user-recipes.svelte';
 	import RecipeCardSkeleton from '$lib/components/RecipeCardSkeleton.svelte';
 	import type { RecipeSummary } from '$lib/types';
 
@@ -24,7 +25,22 @@
 		loading = true;
 		error = null;
 		try {
-			recipes = query.trim() ? await searchRecipes(query.trim()) : await browseByCategory(activeCategory);
+			const trimmedQuery = query.trim();
+			const apiResults = trimmedQuery ? await searchRecipes(trimmedQuery) : await browseByCategory(activeCategory);
+			const matchingUserRecipes = trimmedQuery
+				? userRecipes.list.filter((r) => r.title.toLowerCase().includes(trimmedQuery.toLowerCase()))
+				: userRecipes.list.filter((r) => (r.category ?? '').toLowerCase() === activeCategory.toLowerCase());
+			recipes = [
+				...matchingUserRecipes.map((r) => ({
+					id: r.id,
+					title: r.title,
+					image: r.image,
+					category: r.category,
+					area: r.area,
+					source: r.source
+				})),
+				...apiResults
+			];
 		} catch {
 			error = 'Could not load recipes. Please try again.';
 			recipes = [];
